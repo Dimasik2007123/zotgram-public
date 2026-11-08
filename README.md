@@ -65,7 +65,7 @@ python -m venv backend/core/.venv
 python -m venv backend/chat/.venv
 .\backend\core\.venv\Scripts\python.exe -m pip install -r backend/core/requirements.txt
 .\backend\chat\.venv\Scripts\python.exe -m pip install -r backend/chat/requirements.txt
-npm.cmd --prefix zotgram ci
+npm.cmd --prefix frontend ci
 ```
 
 Первый запуск баз и создание начальных данных:
@@ -90,7 +90,7 @@ docker compose up -d --wait
 ```
 
 ```powershell
-npm.cmd --prefix zotgram run dev
+npm.cmd --prefix frontend run dev
 ```
 
 Сайт: **http://localhost:3000**. Остановка Django и Vite — `Ctrl+C` в каждом терминале, баз и Redis — `docker compose stop`.
