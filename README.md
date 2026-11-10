@@ -1,171 +1,81 @@
 # ZotGram
 
-Внутренняя соцсеть с профилями сотрудников, постами, лайками, комментариями, личными и групповыми чатами. Вход через Яндекс ID, сообщения доставляются через WebSocket. Поддерживаются файлы до 30 МБ и уведомления при открытой вкладке.
+Публикации, фотографии и общение с коллегами в одном приложении. Вход — через Яндекс ID.
 
-Бэкенд разделён на два сервиса: **Core** отвечает за пользователей и публикации, **Chat** — за переписки.
+**[Скачать ZotGram для Android](https://github.com/Dimasik2007123/zotgram-public/raw/refs/heads/main/downloads/zotgram.apk)** · **[Открыть в браузере](https://zotgram.ru)**
 
-Сайт доступен по адресу **https://zotgram.ru**
+Здесь опубликована актуальная **тестовая Android-сборка**. Обновлено **10 ноября 2026 года**. Размер APK — около **6 МБ**.
 
-## Возможности
+## Как установить на Android
 
-- Профили сотрудников, поиск, подписки, публикации, фотографии, лайки и комментарии.
-- Автор поста может изменить текст и фотографию через меню в правом верхнем углу или удалить пост после подтверждения. При удалении удаляются также его комментарии и фотография.
-- Свои отправленные комментарии и сообщения можно редактировать или удалять через меню по правому клику либо долгому нажатию. Enter сохраняет изменения, Shift+Enter добавляет строку.
-- Сообщение удаляется у всех участников; вложение и его превью удаляются вместе с ним. Текстовую подпись к вложению можно очистить, само вложение при редактировании не меняется.
-- Любой участник может удалить личный чат: история удаляется у обоих собеседников. Группу может удалить её администратор; системные чаты защищены от удаления.
-- В чатах доступны поиск по сообщениям, прочтение, вложения и уведомления. Длинные названия в списке и заголовке обрезаются многоточием.
+1. Откройте эту страницу на телефоне и нажмите **[«Скачать ZotGram для Android»](https://github.com/Dimasik2007123/zotgram-public/raw/refs/heads/main/downloads/zotgram.apk)**.
+2. Дождитесь загрузки и откройте файл **`zotgram.apk`** из уведомления или папки «Загрузки».
+3. Если Android попросит разрешение на установку из этого источника, разрешите её для браузера или приложения, из которого открыли APK. Нажмите **«Установить»**.
+4. Откройте **ZotGram**, нажмите **«Войти через Яндекс»** и завершите вход.
 
-## Технологии
+Для обновления ZotGram скачайте APK по той же ссылке и установите поверх существующей версии.
 
-- React 19, Redux Toolkit (включая RTK Query), React Router 7, Vite 8, JavaScript, CSS
-- Python, Django 5.2, Django REST Framework, Simple JWT
-- Django Channels, Daphne, WebSocket, Яндекс OAuth
-- PostgreSQL 17, Redis 7
-- Docker Compose, Nginx
+APK рассчитан на **Android 7.0 и новее**. Это минимальная версия для установки; работа приложения также зависит от системного компонента WebView. Рекомендуем обновить его перед первым использованием.
 
-## Оптимизация
+## Важно: обновите Android System WebView
 
-- Добавлены общий кэш данных, аватаров и вложений, объединение одинаковых запросов и пакетная загрузка списков.
-- История чатов загружается частями и дополняется только недостающими сообщениями; поиск выполняется с задержкой на сервере.
-- События сообщений и чатов передаются через WebSocket. При переподключении история сверяется с сервером. Лайки и отправка комментариев обновляют интерфейс локально; открытые комментарии сверяются с сервером каждые 30 секунд.
-- Уменьшены запросы к базе данных и лишние перерисовки React-компонентов; документы скачиваются только по нажатию.
-- Для изображений в чате создаются отдельные WebP-превью до 800×600; исходный файл скачивается по нажатию на название. JPEG/MPO поддерживаются без изменения оригинала.
-- Кэш данных и Blob URL живёт в памяти вкладки, очищается при выходе и перезагрузке. Готовые превью отдельно сохраняются на сервере в `media/previews/v1/`.
+**[Открыть Android System WebView в Google Play](https://play.google.com/store/apps/details?id=com.google.android.webview)**
 
-## Чаты отделов
+WebView — системный компонент Android, который отображает интерфейс ZotGram. На старых версиях могут возникать зависания при загрузке ленты, чатов или входе в аккаунт. Рекомендуем **WebView 156 или новее**.
 
-В боковом меню доступен чат отдела, указанного в профиле. Навигация использует `systemChats` из `/api/chat/unread/`: это сокращённые объекты `{id, systemKey, departmentId, name}` без поля `type`. Чат отдела ищется по `departmentId`; принадлежность пользователя отделу и серверная проверка доступа сохраняются.
+Чтобы обновить:
 
-## Подготовка
+1. Откройте **[Android System WebView в Google Play](https://play.google.com/store/apps/details?id=com.google.android.webview)**.
+2. Нажмите **«Обновить»**, если кнопка доступна, и дождитесь завершения.
+3. Закройте ZotGram и откройте его заново.
 
-Все команды ниже выполняются **из корня репозитория в PowerShell**. Для локальной разработки нужны Python 3.11+, Node.js 22 и Docker Desktop. Для полностью контейнерного запуска достаточно Docker и подготовленных настроек/ключей.
+При WebView ниже 156 ZotGram предлагает обновление **при каждом запуске и возвращении в приложение из фона**. Кнопка **«Обновить»** открывает страницу используемого компонента, а **«Позже»** позволяет продолжить работу. При версии 156 и выше это окно не появляется.
 
-1. Создай `backend/core/.env` и `backend/chat/.env` по соответствующим `.env.example`, если их ещё нет. Укажи разные `DJANGO_SECRET_KEY`, а в Core — `YANDEX_CLIENT_ID` и `YANDEX_CLIENT_SECRET`.
-2. В настройках OAuth-приложения Яндекса добавь Redirect URI:
-   - `http://localhost:3000/auth/callback` — локальная разработка
-   - `http://localhost:8080/auth/callback` — Docker
-3. Подготовь RSA-ключи `backend/keys/core-private.pem` и `backend/keys/core-public.pem`. Если ключей ещё нет, сгенерируй их через установленный OpenSSL:
+Установка APK ZotGram сама по себе **не обновляет WebView**. На современных Android это отдельный компонент: обновления одного Chrome может быть недостаточно.
 
-```powershell
-New-Item -ItemType Directory -Force backend/keys | Out-Null
-openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:2048 -out backend/keys/core-private.pem
-openssl pkey -in backend/keys/core-private.pem -pubout -out backend/keys/core-public.pem
-```
+**Если обновление недоступно:** Google Play предлагает совместимую с устройством версию. На старых Android WebView 156 может быть недоступен. Проверьте обновления системы или воспользуйтесь **[ZotGram в браузере](https://zotgram.ru)**. Устанавливать случайный APK WebView из интернета для работы с ZotGram не требуется.
 
-Существующие ключи используй повторно. `.env` и ключи исключены из Git.
+## Что можно делать в ZotGram
 
-## Локальная разработка
+- Публиковать посты и фотографии, ставить лайки и оставлять комментарии.
+- Находить коллег, смотреть профили и подписываться на обновления.
+- Общаться в личных, групповых чатах и чатах отделов.
+- Отправлять фотографии, документы и другие файлы до 30 МБ.
+- Редактировать и удалять свои публикации, сообщения и комментарии.
+- Получать уведомления о новых сообщениях, разрешив их на устройстве.
 
-PostgreSQL и Redis работают в Docker, Django и Vite запускаются на компьютере.
+## Если что-то не работает
 
-Установка зависимостей, один раз:
+### Лента или чаты долго загружаются
 
-```powershell
-python -m venv backend/core/.venv
-python -m venv backend/chat/.venv
-.\backend\core\.venv\Scripts\python.exe -m pip install -r backend/core/requirements.txt
-.\backend\chat\.venv\Scripts\python.exe -m pip install -r backend/chat/requirements.txt
-npm.cmd --prefix frontend ci
-```
+Проверьте подключение к интернету, обновите WebView по инструкции выше и нажмите **«Повторить»** в ZotGram. Сетевая ошибка может иметь разные причины; обновление WebView помогает не во всех случаях. Если проблема остаётся, попробуйте **[веб-версию](https://zotgram.ru)**.
 
-Первый запуск баз и создание начальных данных:
+### Не получается войти через Яндекс
 
-```powershell
-docker compose up -d --wait
-.\backend\core\.venv\Scripts\python.exe backend/core/manage.py migrate
-.\backend\chat\.venv\Scripts\python.exe backend/chat/manage.py migrate
-.\backend\core\.venv\Scripts\python.exe backend/core/manage.py seed_departments
-.\backend\chat\.venv\Scripts\python.exe backend/chat/manage.py seed_system_chats
-.\backend\core\.venv\Scripts\python.exe backend/core/manage.py createsuperuser
-```
+Дождитесь завершения входа и возврата в ZotGram. Если появилась ошибка соединения, проверьте интернет и WebView, затем начните вход заново кнопкой **«Войти через Яндекс»**.
 
-При следующих запусках достаточно поднять базы через `docker compose up -d --wait` и выполнить команды ниже **в трёх отдельных терминалах**:
+### Android не устанавливает APK
 
-```powershell
-.\backend\core\.venv\Scripts\python.exe backend/core/manage.py runserver 127.0.0.1:8000
-```
+Проверьте, что файл загрузился полностью, на телефоне есть свободное место и разрешена установка из выбранного источника. Если Android сообщает о конфликте с установленным приложением, укажите точный текст ошибки в обращении ниже.
 
-```powershell
-.\backend\chat\.venv\Scripts\python.exe backend/chat/manage.py runserver 127.0.0.1:8001
-```
+### Как сообщить об ошибке
 
-```powershell
-npm.cmd --prefix frontend run dev
-```
+**[Создать обращение на GitHub](https://github.com/Dimasik2007123/zotgram-public/issues/new)** и указать:
 
-Сайт: **http://localhost:3000**. Остановка Django и Vite — `Ctrl+C` в каждом терминале, баз и Redis — `docker compose stop`.
+- модель телефона и версию Android;
+- версию WebView, если она известна;
+- на каком экране возникла проблема и что вы нажали;
+- текст ошибки или скриншот без личных данных.
 
-## Полностью в Docker
+Не публикуйте пароли, коды входа, токены и личную переписку.
 
-Этот режим использует отдельные базы и тома. Данные локальной разработки автоматически сюда не переносятся. Адреса сервисов и callback для порта 8080 переопределяются в `compose.full.yaml`.
+<details>
+<summary>Сведения о текущей сборке</summary>
 
-Первый запуск:
+- Версия приложения: **1.0**.
+- Тип сборки: **тестовая (debug)**.
+- Идентификатор приложения: `ru.zotgram.app`.
+- В этой сборке: предложение обновить WebView ниже 156 при каждом открытии приложения; окно можно закрыть кнопкой «Позже».
+- [Контрольная сумма SHA-256](downloads/SHA256SUMS) для проверки скачанного APK.
 
-```powershell
-docker compose -f compose.full.yaml build
-docker compose -f compose.full.yaml up -d --wait core-db chat-db redis
-docker compose -f compose.full.yaml run --rm core python manage.py migrate
-docker compose -f compose.full.yaml run --rm chat python manage.py migrate
-docker compose -f compose.full.yaml run --rm core python manage.py seed_departments
-docker compose -f compose.full.yaml run --rm chat python manage.py seed_system_chats
-docker compose -f compose.full.yaml run --rm core python manage.py createsuperuser
-docker compose -f compose.full.yaml up -d --wait
-```
-
-Сайт: **http://localhost:8080**, админка: **http://localhost:8080/admin/**.
-
-Повторный запуск:
-
-```powershell
-docker compose -f compose.full.yaml up -d --wait
-```
-
-Остановка с сохранением данных:
-
-```powershell
-docker compose -f compose.full.yaml stop
-```
-
-Обновление после изменений кода:
-
-```powershell
-docker compose -f compose.full.yaml build
-docker compose -f compose.full.yaml up -d --wait
-docker compose -f compose.full.yaml exec nginx nginx -s reload
-```
-
-Если появились новые миграции, после сборки и перед запуском примени их командами `run --rm ... migrate` из первого запуска. Файлы миграций должны быть созданы в исходниках до сборки. После обновления фронта обнови страницу через `Ctrl+F5`.
-
-Для редактирования и удаления постов, комментариев и сообщений новые миграции не требуются. После обновления нужны актуальные сборки Core, Chat и фронтенда.
-
-Состояние и журналы:
-
-```powershell
-docker compose -f compose.full.yaml ps
-docker compose -f compose.full.yaml logs --tail=100 core chat nginx
-```
-
-`compose.full.yaml` настроен для локального HTTP-запуска. Для публичного сервера нужны домен, HTTPS и собственные пароли и секреты.
-
-## Админки
-
-У сервисов отдельные админки и учётные записи:
-
-- Core: `/admin/` — пользователи, отделы, публикации
-- Chat: `/admin/chat/` — чаты, участники и сообщения
-
-В Docker открывай эти пути на `http://localhost:8080`, при локальной разработке через Vite — на `http://localhost:3000`. Напрямую админка Chat доступна на `http://localhost:8001/admin/chat/`.
-
-Для входа в Chat один раз создай его суперпользователя (логин и пароль из Core автоматически не переносятся).
-
-В Docker:
-
-```powershell
-docker compose -f compose.full.yaml exec chat python manage.py createsuperuser
-```
-
-При локальной разработке:
-
-```powershell
-.\backend\chat\.venv\Scripts\python.exe backend/chat/manage.py createsuperuser
-```
+</details>
