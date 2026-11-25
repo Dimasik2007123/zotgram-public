@@ -6,6 +6,20 @@
 
 Здесь опубликована актуальная **Android-сборка 2.26** с release-подписью. Обновлено **21 ноября 2026 года**. Размер APK — около **4,8 МБ**.
 
+## Скриншоты
+
+### Версия для компьютера
+
+| Лента и комментарии | Чаты |
+| :---: | :---: |
+| <img src="screenshots/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202026-09-10%20214537.png" alt="Лента публикаций с комментариями" width="760"> | <img src="screenshots/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202026-09-10%20214556.png" alt="Список чатов и переписка" width="760"> |
+
+### Версия для телефона
+
+| Лента в тёмной теме | Групповой чат |
+| :---: | :---: |
+| <img src="screenshots/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202026-11-11%20182259.png" alt="Лента ZotGram на телефоне" width="240"> | <img src="screenshots/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202026-11-11%20182331.png" alt="Групповой чат ZotGram на телефоне" width="240"> |
+
 ## Как установить на Android
 
 1. Откройте эту страницу на телефоне и нажмите **[«Скачать ZotGram для Android»](https://github.com/Dimasik2007123/zotgram-public/raw/refs/heads/main/downloads/zotgram.apk)**.
